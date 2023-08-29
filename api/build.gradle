@@ -1,0 +1,31 @@
+bootJar {
+    archiveFileName = 'xmall-auth-api.jar'
+
+    doLast {
+        copy {
+            from file(archiveFile)
+            into "${rootDir}/bin"
+        }
+    }
+}
+
+dependencies {
+    implementation project(':model')
+    implementation project(':common')
+    implementation project(':business')
+    implementation project(':contract')
+    implementation "com.orkva.projects:xmall-common:${xmallCommonVersion}"
+
+
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-authorization-server'
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.cloud:spring-cloud-starter'
+//    implementation 'org.springframework.cloud:spring-cloud-starter-config'
+
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}

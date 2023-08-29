@@ -1,0 +1,96 @@
+buildscript {
+    ext {
+        baseVersion = '0.0.1-SNAPSHOT'
+        projectJavaVersion = '17'
+        projectGradleVersion = '8.3'
+
+        springCloudVersion = '2022.0.4'
+        springBootVersion = '3.1.2'
+        springBootPluginVersion = '3.1.2'
+        springDependencyManagementVersion = '1.1.2'
+        springDocVersion = '2.1.0'
+        lombokVersion = '1.18.26'
+
+        xmallCommonVersion = '0.0.1-SNAPSHOT'
+    }
+
+    repositories {
+        mavenLocal()
+        maven {
+            url 'https://maven.aliyun.com/repository/public/'
+        }
+        maven {
+            url 'https://maven.aliyun.com/repository/spring/'
+        }
+        maven {
+            url 'https://plugins.gradle.org/m2/'
+        }
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootPluginVersion}")
+    }
+}
+
+plugins {
+    id 'io.spring.dependency-management' version "${springDependencyManagementVersion}" apply false
+    id 'org.springframework.boot' version "${springBootVersion}" apply false
+}
+
+allprojects {
+    repositories {
+        mavenLocal()
+        maven {
+            url 'https://maven.aliyun.com/repository/public/'
+        }
+        maven {
+            url 'https://maven.aliyun.com/repository/spring/'
+        }
+        maven {
+            url 'https://plugins.gradle.org/m2/'
+        }
+        mavenCentral()
+    }
+
+}
+
+subprojects {
+    apply {
+        plugin 'java'
+        plugin 'io.spring.dependency-management'
+        plugin 'org.springframework.boot'
+    }
+
+    group = 'com.orkva.projects'
+    version = "${baseVersion}"
+
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+        }
+    }
+
+    java {
+        sourceCompatibility = "${projectJavaVersion}"
+        targetCompatibility = "${projectJavaVersion}"
+    }
+
+    task wrapper(type: Wrapper) {
+        gradleVersion = "${projectGradleVersion}"
+    }
+
+    tasks.withType(JavaCompile) {
+        options.encoding = "UTF-8"
+    }
+
+    tasks.named('test') {
+        useJUnitPlatform()
+    }
+
+    configurations {
+        compileOnly {
+            extendsFrom annotationProcessor
+        }
+    }
+}

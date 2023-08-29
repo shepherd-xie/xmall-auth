@@ -1,0 +1,4 @@
+rootProject.name = 'xmall-auth'
+
+include 'common', 'model', 'business', 'api', 'contract'
+

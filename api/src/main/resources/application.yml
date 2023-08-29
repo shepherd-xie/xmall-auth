@@ -1,0 +1,28 @@
+debug: true
+spring:
+  application:
+    name: xmall-auth
+  datasource:
+    url: jdbc:mysql://mysql.orkva.com:3307/xmall_auth?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: 7#f82CF3K8jwAq&Zp*L2489tPK*9E@78
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      auto-commit: true
+  jpa:
+    database: mysql
+    hibernate:
+      ddl-auto: none
+    database-platform: org.hibernate.dialect.MySQLDialect
+  jackson:
+    default-property-inclusion: non_absent
+springdoc:
+  show-actuator: true
+
+server:
+  port: 8080
+
+snowflake:
+  worker-id: 0
+  datacenter-id: 0
