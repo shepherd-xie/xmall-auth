@@ -2,14 +2,11 @@ package com.orkva.projects.xmall.auth.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.orkva.projects.xmall.auth.common.util.JWTUtils;
-import com.orkva.projects.xmall.auth.entity.SysUser;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.bouncycastle.crypto.params.RSAKeyParameters;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -26,8 +23,6 @@ import java.io.IOException;
  */
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
-    private AuthenticationManager authenticationManager;
-    private RSAKeyParameters rsaKeyParameters;
     @Autowired
     private ObjectMapper objectMapper;
 
@@ -42,12 +37,12 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         }
         UsernamePasswordAuthenticationToken authRequest = UsernamePasswordAuthenticationToken
                 .unauthenticated(userDetails.getUsername(), userDetails.getPassword());
-        return authenticationManager.authenticate(authRequest);
+        return getAuthenticationManager().authenticate(authRequest);
     }
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
-        String token = JWTUtils.createToken(objectMapper.writeValueAsString(authResult));
+        String token = JWTUtils.createToken((UserDetails) authResult.getPrincipal());
         response.addHeader("Authorization", "Bearer " + token);
         super.successfulAuthentication(request, response, chain, authResult);
     }

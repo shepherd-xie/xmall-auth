@@ -33,7 +33,7 @@ public class JWTVerifyFilter extends BasicAuthenticationFilter {
             return;
         }
 
-        UserDetails userDetails = (UserDetails) JWTUtils.getPayload(token);
+        UserDetails userDetails = JWTUtils.getUserDetails(token.substring(7));
         UsernamePasswordAuthenticationToken authenticated = UsernamePasswordAuthenticationToken
                 .authenticated(userDetails.getUsername(), null, userDetails.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authenticated);
