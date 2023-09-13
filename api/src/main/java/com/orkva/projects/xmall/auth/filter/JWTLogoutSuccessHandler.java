@@ -1,5 +1,6 @@
 package com.orkva.projects.xmall.auth.filter;
 
+import com.orkva.projects.xmall.auth.AuthenticationUser;
 import com.orkva.projects.xmall.auth.common.util.JWTUtils;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -24,9 +25,9 @@ public class JWTLogoutSuccessHandler implements LogoutSuccessHandler {
         if (!StringUtils.startsWithIgnoreCase(token, "Bearer ")) {
             return;
         }
-        UserDetails userDetails = JWTUtils.getUserDetails(token.substring(7));
-        if (userDetails != null) {
-            JWTUtils.expired(userDetails);
+        AuthenticationUser authenticationUser = JWTUtils.getSubject(token.substring(7), AuthenticationUser.class);
+        if (authenticationUser != null) {
+            JWTUtils.expired(authenticationUser);
         }
     }
 }
