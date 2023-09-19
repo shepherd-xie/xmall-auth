@@ -1,7 +1,7 @@
 package com.orkva.projects.xmall.auth.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.orkva.projects.xmall.auth.common.util.JWTUtils;
+import com.orkva.projects.xmall.auth.common.util.JwtUtils;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -10,11 +10,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 
 import java.io.IOException;
 
@@ -24,19 +21,20 @@ import java.io.IOException;
  * @author Shepherd Xie
  * @version 2023/8/29
  */
-public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
+public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     private ObjectMapper objectMapper = new ObjectMapper();
 
-    public JWTAuthenticationFilter(AuthenticationManager authenticationManager) {
+    public JwtAuthenticationFilter(AuthenticationManager authenticationManager) {
         super(authenticationManager);
     }
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         UserDetails userDetails;
+        String authorization = request.getHeader("Authorization");
         try {
-            if (obtainUsername(request) != null) {
+            if (authorization == null) {
                 return super.attemptAuthentication(request, response);
             }
             userDetails = objectMapper.readValue(request.getInputStream(), UserDetails.class);
@@ -50,7 +48,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
-        String token = JWTUtils.createToken(authResult.getPrincipal());
+        String token = JwtUtils.createToken(authResult.getPrincipal());
         response.addHeader("Authorization", "Bearer " + token);
         super.successfulAuthentication(request, response, chain, authResult);
     }

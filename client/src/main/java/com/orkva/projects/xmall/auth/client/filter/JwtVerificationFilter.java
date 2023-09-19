@@ -1,7 +1,7 @@
-package com.orkva.projects.xmall.auth.filter;
+package com.orkva.projects.xmall.auth.client.filter;
 
-import com.orkva.projects.xmall.auth.AuthenticationUser;
-import com.orkva.projects.xmall.auth.common.util.JWTUtils;
+import com.orkva.projects.xmall.auth.common.domain.AuthenticationUser;
+import com.orkva.projects.xmall.auth.common.util.JwtUtils;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -15,13 +15,13 @@ import org.springframework.util.StringUtils;
 import java.io.IOException;
 
 /**
- * JWTVerifyFilter
+ * JwtVerificationFilter
  *
  * @author Shepherd Xie
  * @version 2023/8/29
  */
-public class JWTVerifyFilter extends BasicAuthenticationFilter {
-    public JWTVerifyFilter(AuthenticationManager authenticationManager) {
+public class JwtVerificationFilter extends BasicAuthenticationFilter {
+    public JwtVerificationFilter(AuthenticationManager authenticationManager) {
         super(authenticationManager);
     }
 
@@ -33,7 +33,7 @@ public class JWTVerifyFilter extends BasicAuthenticationFilter {
             return;
         }
 
-        AuthenticationUser authenticationUser = JWTUtils.getSubject(token.substring(7), AuthenticationUser.class);
+        AuthenticationUser authenticationUser = JwtUtils.getSubject(token.substring(7), AuthenticationUser.class);
         UsernamePasswordAuthenticationToken authenticated = UsernamePasswordAuthenticationToken
                 .authenticated(authenticationUser.getUsername(), null, authenticationUser.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authenticated);

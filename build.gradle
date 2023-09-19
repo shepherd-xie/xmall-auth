@@ -57,7 +57,7 @@ allprojects {
 
 subprojects {
     apply {
-        plugin 'java'
+        plugin 'java-library'
         plugin 'io.spring.dependency-management'
         plugin 'org.springframework.boot'
     }

@@ -1,7 +1,6 @@
 
 dependencies {
-    implementation project(':common')
-    implementation project(':model')
+    api project(':model')
     implementation "com.orkva.projects:xmall-common:${xmallCommonVersion}"
 
     implementation 'org.springframework.data:spring-data-jpa'
