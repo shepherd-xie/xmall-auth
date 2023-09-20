@@ -1,7 +1,7 @@
 package com.orkva.projects.xmall.auth.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.orkva.projects.xmall.auth.common.util.JwtUtils;
+import com.orkva.projects.xmall.auth.client.common.util.JwtUtils;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

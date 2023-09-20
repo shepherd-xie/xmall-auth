@@ -1,25 +1,28 @@
-package com.orkva.projects.xmall.auth.entity;
+package com.orkva.projects.xmall.auth.client.entity;
 
-import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
+import jakarta.persistence.*;
 import java.time.Instant;
 
 /**
- * Permission
+ * User
  *
  * @author Shepherd Xie
  * @version 2023/7/30
  */
 @Entity
 @Data
-@Table(name = "tb_permissions")
-public class Permission {
+@Table(name = "tb_users")
+public class SysUser {
     @Column(unique = true)
-    private String value;
-    private String name;
+    private String username;
+    @Column(unique = true)
+    private String email;
+    private String password;
+    private Boolean enable;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

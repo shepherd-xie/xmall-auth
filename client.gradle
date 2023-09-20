@@ -1,5 +1,0 @@
-rootProject.name = 'xmall-auth'
-
-include 'common', 'model', 'client'
-
-

@@ -1,3 +1,7 @@
+apply {
+    plugin 'org.springframework.boot'
+}
+
 bootJar {
     archiveFileName = 'xmall-auth-api.jar'
 
@@ -10,10 +14,7 @@ bootJar {
 }
 
 dependencies {
-    implementation project(':model')
-    implementation project(':common')
     implementation project(':business')
-    implementation project(':contract')
     implementation project(':client')
     implementation "com.orkva.projects:xmall-common:${xmallCommonVersion}"
 

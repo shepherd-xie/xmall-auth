@@ -1,7 +1,7 @@
 package com.orkva.projects.xmall.auth.filter;
 
-import com.orkva.projects.xmall.auth.common.domain.AuthenticationUser;
-import com.orkva.projects.xmall.auth.common.util.JwtUtils;
+import com.orkva.projects.xmall.auth.client.common.domain.AuthenticationUser;
+import com.orkva.projects.xmall.auth.client.common.util.JwtUtils;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

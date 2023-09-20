@@ -1,4 +1,4 @@
-package com.orkva.projects.xmall.auth.common.util;
+package com.orkva.projects.xmall.auth.client.common.util;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

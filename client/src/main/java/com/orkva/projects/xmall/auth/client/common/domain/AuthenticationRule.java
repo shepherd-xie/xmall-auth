@@ -1,4 +1,4 @@
-package com.orkva.projects.xmall.auth.common.domain;
+package com.orkva.projects.xmall.auth.client.common.domain;
 
 import lombok.Data;
 

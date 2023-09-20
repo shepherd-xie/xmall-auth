@@ -1,4 +1,4 @@
-package com.orkva.projects.xmall.auth.common.util;
+package com.orkva.projects.xmall.auth.client.common.util;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

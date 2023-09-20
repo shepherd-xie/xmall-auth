@@ -2,26 +2,22 @@ plugins {
     id 'maven-publish'
 }
 
+ext {
+    clientVersion = '0.0.1-SNAPSHOT'
+}
+
 publishing {
     publications {
         maven(MavenPublication) {
             groupId = group
             artifactId = 'xmall-auth-client'
-            version = version
+            version = clientVersion
             from components.java
-
-            configurations.api.allDependencies.each {
-                def dependencyNode = dependenciesNode.appendNode('dependency')
-                dependencyNode.appendNode('groupId', it.group)
-                dependencyNode.appendNode('artifactId', it.name)
-                dependencyNode.appendNode('version', it.version)
-            }
         }
     }
 }
 
 dependencies {
-    api project(':business')
     implementation "com.orkva.projects:xmall-common:${xmallCommonVersion}"
 
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
@@ -29,6 +25,11 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
 
+    implementation "io.jsonwebtoken:jjwt-api:${jjwtVersion}"
+    runtimeOnly "io.jsonwebtoken:jjwt-impl:${jjwtVersion}"
+    runtimeOnly "io.jsonwebtoken:jjwt-jackson:${jjwtVersion}"
+
+    runtimeOnly 'com.mysql:mysql-connector-j'
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'

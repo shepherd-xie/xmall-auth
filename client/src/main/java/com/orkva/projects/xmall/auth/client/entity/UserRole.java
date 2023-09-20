@@ -1,25 +1,24 @@
-package com.orkva.projects.xmall.auth.entity;
+package com.orkva.projects.xmall.auth.client.entity;
 
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import jakarta.persistence.*;
-
 import java.time.Instant;
 
 /**
- * RolePermission
+ * UserRole
  *
  * @author Shepherd Xie
  * @version 2023/7/30
  */
 @Entity
 @Data
-@Table(name = "tb_role_permissions")
-public class RolePermission {
+@Table(name = "tb_user_roles")
+public class UserRole {
+    private Integer userId;
     private Integer roleId;
-    private Integer permissionId;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

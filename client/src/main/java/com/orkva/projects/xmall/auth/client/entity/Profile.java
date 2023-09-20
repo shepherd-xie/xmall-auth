@@ -1,4 +1,4 @@
-package com.orkva.projects.xmall.auth.entity;
+package com.orkva.projects.xmall.auth.client.entity;
 
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
